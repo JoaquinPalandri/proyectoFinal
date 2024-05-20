@@ -57,7 +57,7 @@ client.on('message', function (topic, message) {
             if (err) {
                 throw err;
             } else {
-                console.log("Conexión a la base de datos exitosa");
+                console.log("Conexión a la base de datos exitosaa");
             }
         });
         
