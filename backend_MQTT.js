@@ -1,22 +1,7 @@
 const mqtt = require("mqtt");
 const mysql= require("mysql");
 
-let conexion = mysql.createConnection({
-    host: "boczfz9qtkrjwks7pcyg-mysql.services.clever-cloud.com",
-    database:"boczfz9qtkrjwks7pcyg",
-    user:"uyvaseavx4jwx0ly",
-    password:"1UbO1UYZfUkPx29ijloL",
-    
-})
 
-conexion.connect(function(err){
-    if(err){
-        throw err;
-    } else{
-        console.log("conexion exitosa");
-    }
-})
-// Configuración del cliente MQTT
 const mqttBroker = 'wss://mqtt.eclipseprojects.io/mqtt'; // Cambiar al URI de tu broker MQTT
 const client = mqtt.connect(mqttBroker, {
     clientId: 'node-client-' + Math.random()
@@ -27,7 +12,6 @@ client.on('connect', function () {
     // Suscribirse al tema para recibir mensajes
     client.subscribe('BetweenRivers/EquiposDuchaCama');
 });
-
 client.on('message', function (topic, message) {
     // Mensaje recibido del broker MQTT
     console.log('Mensaje recibido en el tema', topic, ':', message.toString());
@@ -43,7 +27,7 @@ client.on('message', function (topic, message) {
         const id = partes[2];
         const fecha = partes[3];
         const retrolavado = partes[4];
-        const conexion = partes[5];
+        const conexionMensaje = partes[5];  // Usar un nombre diferente
         const tiempoUso = partes[6];
         const tiempoAsp = partes[7];
         const tiempoBaño = partes[8];
@@ -55,12 +39,28 @@ client.on('message', function (topic, message) {
         console.log('ID:', id);
         console.log('Fecha:', fecha);
         console.log('Retrolavado:', retrolavado);
-        console.log('Conexión:', conexion);
+        console.log('Conexión:', conexionMensaje);  // Usar el nombre diferente
         console.log('Tiempo de uso:', tiempoUso);
         console.log('Tiempo de aspirado:', tiempoAsp);
         console.log('Tiempo de baño:', tiempoBaño);
         console.log('Ciclos:', ciclos);
         console.log('Temperatura:', temperatura);
+        
+        const conexionDB = mysql.createConnection({
+            host: "boczfz9qtkrjwks7pcyg-mysql.services.clever-cloud.com",
+            database: "boczfz9qtkrjwks7pcyg",
+            user: "uyvaseavx4jwx0ly",
+            password: "1UbO1UYZfUkPx29ijloL",
+        });
+        
+        conexionDB.connect(function(err) {
+            if (err) {
+                throw err;
+            } else {
+                console.log("Conexión a la base de datos exitosa");
+            }
+        });
+        
     } else {
         console.error('El mensaje no tiene la estructura esperada');
     }
