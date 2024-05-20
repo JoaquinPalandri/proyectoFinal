@@ -16,10 +16,11 @@ client.on('connect', function () {
 client.on('message', function (topic, message) {
     // Crear una conexión a la base de datos MySQL
     const connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'id22078331_root',
-        password: 'Palita_12',
-        database: 'id22078331_btriver'
+        host: 'monorail.proxy.rlwy.net',
+        user: 'root',
+        password: 'sDwrznjbJxwXPDMHKnXpUJWmVlGKtIym',
+        database: 'railway',
+        port: 15481
     });
 
     // Conectar a la base de datos MySQL
