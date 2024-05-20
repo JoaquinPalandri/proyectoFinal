@@ -2,10 +2,10 @@ const mqtt = require("mqtt");
 const mysql= require("mysql");
 
 let conexion = mysql.createConnection({
-    host: "localhost",
-    database:"betriv_bd",
-    user:"root",
-    password:"",
+    host: "boczfz9qtkrjwks7pcyg-mysql.services.clever-cloud.com",
+    database:"boczfz9qtkrjwks7pcyg",
+    user:"uyvaseavx4jwx0ly",
+    password:"1UbO1UYZfUkPx29ijloL",
     
 })
 
