@@ -1,6 +1,21 @@
 const mqtt = require("mqtt");
+const mysql= require("mysql");
 
+let conexion = mysql.createConnection({
+    host: "localhost",
+    database:"betriv_bd",
+    user:"root",
+    password:"",
+    
+})
 
+conexion.connect(function(err){
+    if(err){
+        throw err;
+    } else{
+        console.log("conexion exitosa");
+    }
+})
 // Configuración del cliente MQTT
 const mqttBroker = 'wss://mqtt.eclipseprojects.io/mqtt'; // Cambiar al URI de tu broker MQTT
 const client = mqtt.connect(mqttBroker, {
